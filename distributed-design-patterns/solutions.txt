@@ -1,0 +1,247 @@
+SOLUTIONS
+1. In a distributed environment, several clients fire events and those events are stored across nodes. 
+The timestamps on the nodes are not reliable.
+How these events can be replayed in the order they are stored.
+
+Solution: 
+1. Let the client send the current local-counter along with the request
+2. Let the server update the local-counter by incrementing the max of local & received counters
+3. Let the server store the updated local-counter along with the event
+4. Let the server return the updated local-counter to the client
+5. Let the client update the local-counter by incrementing the max of local & received counters
+
+Code:
+class Clock {
+	int current;
+  
+	public Clock(int time) {
+	  current = time;
+	}
+
+	public int update(int time) {
+		current = max(current, time);
+		return ++current;
+  }
+
+  public int getCurrent() {
+  	return current;
+  }
+}
+
+class Server {
+  Clock clock;
+  Map store;
+
+  public Server() {
+      this.clock = new Clock(1);
+      store = new Store();
+  }
+
+  public int write(String k, String v, int time) {
+      int time = clock.update(time);
+      store.put(time, k, v);
+      return time;
+    }
+  }
+
+ class Client {
+  Clock clock = new Clock(1);
+  public void write() {
+    int t1 = s1.write("event", "payload", clock.getcurrent());
+    clock.update(t1);
+
+    int t2 = s2.write("event", "payload", clock.getcurrent());
+    clock.update(t2);
+  }
+
+Pattern: Lamport Clock
+
+
+2. A leader sends heart-beats to all the followers.
+The leader is down and followers elected a new leader.
+The older leader comes back and sends heart-beats.
+How the followers detect the invalid heart-beats from the old-leader?
+How the older leader knows that a new leader is elected?
+
+Solution: 
+1. Let the leader maintain a counter
+2. Let the leader send the counter along with heart-beats
+3. Let the follower accept heart-beats from the max-counter
+4. Let the follower reject heart-beats from the "lessthan max-counter" and return the max-counter
+5. Let the followers elect a new leader if heartbeats are timedout
+6. Let the new leader increment the counter.
+
+class Node {
+  int counter;
+  boolean leader;
+
+  Node(counter) {
+    this.counter = counter;
+  }
+
+  public void lead(){
+    counter++;
+    while(leader) {
+      sendHeartbeat();
+      wait(duration);
+    }
+  }
+
+  public void sendHeartbeat() {
+    for(Follower f: followers)
+      {accepted, new-counter} = f.recieveHeartbeat(counter);
+      if(!accepted){
+        stepdown(new-counter);
+        break;
+      }
+  }
+
+  public void stepdown(int counter){
+    this.counter = counter;
+    leader = false;
+    receiveHeartbeats();
+  }
+
+  public void recieveHeartbeat(int counter){
+    if(counter < this.counter){
+      reject(this.counter);
+    }else{
+      this.counter = counter;
+    }
+  }
+}
+
+Pattern: Generation Clock
+
+3. A co-ordinator starts a distributed transaction involving multiple servers.
+The transaction timestamp is used for versioning. 
+All the servers must maintain the same timestamp for a transaction.
+How can it be assured.
+
+Solution: 
+1. Let the co-ordinator and all the servers maintain their own lamport clocks
+2. Let the co-ordinator send its clock along with trasaction-request
+3. Let the server write the value and respond with updated clock
+4. let the co-ordinator updates its clock
+5. Repeat 2,3,4 for all the required servers
+6. Let the co-ordinator send its clock along with commit-request
+7. Let the server updates the value with the co-ordinator's clock and update
+8. Repeat step-6 for all required servers
+
+class Server {
+  Clock clock;
+  Server() {
+    clock = new Clock(1);
+  }
+  write(k, v, clock) {
+    this.clock.update(clock);
+    write(this.clock, k, v);
+    return this.clock;
+  }
+  commit(k, clock){
+    commit(clock, k, v);
+  }
+}
+
+class Coordinator {
+  Clock clock;
+  Coordinator() {
+    clock = new Clock(1);
+  }
+
+  transaction() {
+    c1 = s1.write(k1, v1, clock);
+    clock.update(c1);
+    c2 = s2.write(k2, v2, clock);
+    clock.update(c2);
+    ....
+    s1.commit(k1, clock);
+    s2.commit(k2, clock);
+  }
+}
+
+Pattern: Hybrid Clock
+
+
+4. 
+Solution:
+1. Client registers with server
+2. Server assigns a unique ID to the client
+3. Client sends requests along with client-ID and request-number
+4. Server maintains a session for each client
+5. Responses of all non-idempotent requests are maintained in the session
+6. Server responds
+7. Client retries, if no response, with the same request number.
+8. Server serves from the session, if found
+9. Server handles the requests, if not
+
+Pattern: Idempotent Receiver 
+
+5. 
+Solution:
+1. Have separate clusters for data & management
+2. Management cluster can be smaller (3 nodes)
+3. Management cluster store meta-data (get/put)
+4. Clients can interact with Mgmt cluster (need not be data cluster)
+5. Mgmt cluster can forward the request to leader/master
+6. Mgmt cluster can handle some read-only requests 
+7. Mgmt cluster can return leader/master
+
+Pattern: Consistent Core
+
+6. 
+- Map/Reduce
+- Scatter/Gather
+- Co-ordinated Batch Processing 
+- Join (compute after all the tasks are completed)
+- Reduce (keep computing as and when a task is complted)
+- Apache Spark
+- RDD: immutable and fault-tolerant
+- Straggler
+
+7. 
+- Service Registry
+- Self-registration
+- Third-party registration
+- Heartbeats
+- Gateway
+- Discovery
+- Client-side & Service-side
+- Load-balancer
+- Circuit-breaker
+
+8. 
+- Physical Host
+- Virtual Machine
+- Container
+- Contrainer Orchestration
+- Kubernetes
+- POD
+- Service
+- Primary Container
+- Sidecar Container
+- Adapter Sidecars
+- Reverse Proxies
+
+9
+- Ambassador Sidecars
+- Client proxies
+
+10
+- Sharding
+- Shard Function
+- Routers
+- Hot Shards
+- Re-sharding
+- Speed, Throughput
+
+11
+- ESB
+- Routing
+- Protocol Conversion
+- Point-to-point
+- Accountability
+
+12
+- Broker
+- Hub & Spoke

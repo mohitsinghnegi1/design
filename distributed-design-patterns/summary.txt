@@ -1,0 +1,56 @@
+Single Node Patterns
+	Sidecar: A co-container in the pod to complementary services
+	Adapter: A sidecar to act as reverse proxy
+	Ambassador: A sidecar to act as a client proxy
+
+Microservice Patterns
+	- Regsitry: Directory of deployed service instances
+	- Registrar: Registers a service as part of deployment
+	- Self-registration: Registers directly with the registry
+	- Load Balancer: Routes requests to distribute the load across service instances
+	- Gateway: Hides multiple services to offer a single view to the clients
+	- Client-side Discovery: Clients discover services from the registry
+	- Server-side Discovery: Gateway discovers services from the registry 
+	- Cirucit-breaker: Closes route to a malfunctioning service
+	Stateless Services: Do not save states between calls and scales horizontally
+	- Serverless: Event-driven
+	- Distributed Monolith: Tightly coupled microservices
+
+	- Replication: For fault-tolerance
+	Sharding: For load-distribution
+	- Scatter-Gather: For parallel-processing
+	- Leader-Follower: Leader takes the charge
+	- Master-Worker: Leader distributes the work
+	Consistent Core: A cluster to manage data-cluster
+	Idempotent Receiver: Saves from repeated non-idempotent requests
+	Hot Shard: Overworks
+	- Straggler: Slowest worker
+	Quorum: Majority
+	Lease: Expiring lock
+
+Messaging Patterns
+	- One-way: Producer do not expect response
+	- Request/Response: Virtual channel
+	- Publish/Subscribe: One producer and any number of consumers
+	Broker: Hub and spoke
+	Bus: Point-to-point
+
+Work Queue Patterns
+	- Copier: Copies workloads into multiple queues
+	- Filter: Conditionally drops workloads
+	- Splitter: Conditionally moves workloads into separate queues
+	- Merger: Collects workloads from multiple queues into one
+
+Clock/Version Patterns
+	Lamport Clock: Orders events across co-ordinating services
+	- Generation Clock: Versions events
+	Hybrid Clock: Adds data to versioning
+
+Co-ordinated Batch Processing Patterns
+	- Join: Collation waits for all the workers
+	- Reduce: Collation happens in parallel to worker
+
+Log Patterns
+	- Segmented Log: Throughput
+	Write-ahead Log: Recovery
+	- Replicated Log: Followers provide fault-tolerance

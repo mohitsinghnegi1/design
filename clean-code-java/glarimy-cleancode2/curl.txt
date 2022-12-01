@@ -1,0 +1,23 @@
+OPEN ACCOUNT: 
+curl -X POST -H 'Content-Type: application/json' -i http://localhost:8080/account --data '{"name":"Krishna Mohan", "phone":9731423166, "email":"krishna@glarimy.com", "address":{"location":"Pai Layout", "city":"Bengaluru", "pincode":560016}}'
+
+GET ACCOUNT SUMMARY:
+curl -X GET -i http://localhost:8080/account/1/summary
+
+UPDATE ADDRESS: 
+curl -X PUT -H 'Content-Type: application/json' -i http://localhost:8080/account/1/address --data '{"location":"Old Madras Road", "city":"Bengaluru", "pincode":560016}'
+
+CLOSE ACCOUNT:
+curl -X DELETE -i http://localhost:8080/account/1
+
+UPDATE PHONE: 
+curl -X PUT -i 'http://localhost:8080/account/1/phone?value=123'
+
+ADD CARD:
+curl -X POST -H 'Content-Type: application/json' -i http://localhost:8080/account/1/card
+
+MAKE TRANSACION:
+curl -X POST -H 'Content-Type: application/json' -i http://localhost:8080/card/3744379240736007/transaction --data '{"amount":500, "biller":"BookMyShow", "type":"debit"}'
+
+STATEMENT:
+curl -X GET -i http://localhost:8080/card/3744379240736007/statement

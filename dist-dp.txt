@@ -1,0 +1,118 @@
+Distributed System Design Patterns
+
+1. Pre-read:
+    Docker Technology: https://docs.docker.com/get-started
+    Kuberenetes: https://kubernetes.io/docs/concepts/ (Architecture, Containers, Workloads, Services, Load Balancing)
+    Apache Kafka: https://kafka.apache.org/quickstart
+    Apache Spark: https://spark.apache.org/docs/latest/rdd-programming-guide.html
+
+2. Post-read:
+    Distributed Design: Designing Distributed Systems by Brendan Burns
+
+3. Assessment Questions (please randomise)
+
+    1. In the Kubernetes infrastructure, the application and the sidecar lives in the same ___________.
+    (A) Network 
+    (B) Pod 
+    (C) Container
+
+    2. A legacy service handles only HTTP traffic. A __________ can be used to handle HTTPS traffic without rebuilding the legacy service.
+    (A) Ambassador 
+    (B) Adapter
+    (C) Separate Pod
+
+    3. An application container needs a database connection. Different databases are used for test and staging purposes. ___________ takes the responsibility of connecting to the appropriate database.
+    (A) Application container
+    (B) Ambassador
+    (C) Sidecar
+
+    4. An ambassador is ____________ and thus runs in the same __________.
+    (A) a sidecar, pod
+    (B) a sidecar, container
+    (C) not a sidecar, pod
+
+    5. An adapter acts as a ______ and an ambassador acts as a _________.
+    (A) Client Proxy, Reverse Proxy
+    (B) Reverse Proxy, Client Proxy
+    (C) Reverse Proxy, Reverse Proxy
+
+    6. A stateless service ____________ and __________.
+    (A) can be scaled horizontally, uses lesser memory loads
+    (B) can not be scaled horizontally, uses lesser memory loads
+    (C) can be scaled horizontally, uses higher memory loads
+
+    7. In kuberenetes, ___________ acts as the load balancer in front of replicated stateless services.
+    (A) deployment  
+    (B) gateway
+    (C) service
+
+    8. Sharded services are _______________.
+    (A) replicated stateless homogeneous services
+    (B) replicated stateful homogeneous services
+    (C) not homogeneous
+
+    9. A hot shard _________________.
+    (A) boots up first
+    (B) handles most of the load
+    (C) routes the requests to other shards
+
+    10. ___________ is an example of scatter/gather pattern.
+    (A) Apache Kafka
+    (B) Apache Tomcat
+    (C) Apache Spark
+
+    11. The straggler problem is a limitation of ______________ pattern.
+    (A) Scatter/Gather
+    (B) Replicated Load Balancer
+    (C) Stateless Services
+
+    12. FaaS is fundamentally _____________ system
+    (A) Distributed System
+    (B) Parallel Processing System
+    (C) Event-Driven System
+
+    13. FaaS is ______________ for background processing.
+    (A) ill-suited
+    (B) optimised
+    (C) an implementation
+
+    14. _______________ is an example for master election service.
+    (A) Hazzlecast
+    (B) Kafka
+    (C) Zookeeper
+
+    15. Which of the following are examples for event based batch processing patterns?
+    (A) Filter
+    (B) Copier
+    (C) Both
+
+    16. Apache Kafka guarantees the following.
+    (A) A given message is delivered to all the consumers in a consumer group.
+    (B) A given message is delivered to only one of the consumers in a consumer group.
+    (C) A given message is delivered to at least one of the consumers in a consumer group.
+
+    17. Which of the following is true in Apache Spark?
+    (A) An RDD is immutable
+    (B) An RDD can be reconstructed
+    (C) Both
+
+    18. The REDUCE pattern is an example of
+    (A) Event based batch processing pattern
+    (B) Stream processing pattern
+    (C) Coordinated batch processing pattern
+
+    19. Zookeeper uses __________.
+    (A) Segemented log
+    (B) Commit log
+    (C) Write-Ahead log
+
+    20. Kafka uses ____________ for storage.
+    (A) Segemented log
+    (B) Commit log
+    (C) Write-Ahead log
+
+    Answers:
+    1-B, 2-B, 3-B, 4-A, 5-B,
+    6-A, 7-C, 8-C, 9-B, 10-C,
+    11-A, 12-C, 13-A, 14-C, 15-C,
+    16-B, 17-C, 18-C, 19-C, 20-A

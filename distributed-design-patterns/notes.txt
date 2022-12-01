@@ -1,0 +1,162 @@
+1. 
+- In a distributed environment, several clients fire events and those events are stored across nodes. 
+- The timestamps on the nodes are not reliable.
+- How these events can be replayed in the order they are stored.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2. 
+- A leader sends heart-beats to all the followers.
+- The leader is down and followers elected a new leader.
+- The older leader comes back and sends heart-beats.
+- How the followers detect the invalid heart-beats from the old-leader?
+- How the older leader knows that a new leader is elected?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3. 
+- A co-ordinator starts a distributed transaction involving multiple servers.
+- The transaction timestamp is used for versioning. 
+- All the servers must maintain the same timestamp for a transaction.
+- How can it be assured.
+
+4. 
+- Clients send requests to the servers.
+- Servers processe and respond.
+- Server may processe but fail to respond.
+- Clients retry the request which leads to inconsistency.
+- How the servers avoid duplicate requests?
+
+5. 
+- A large data-cluster wants to store mata-data, elect leader/master, manage group-membership in consistent-way.
+
+
+
+
+
+
+
+
+
+
+
+
+
+6. 
+- Words are to be counted in several files of a folder. 
+- Map/Reduce on a cluster 
+- How can it be co-ordinated? 
+- When does the final counts are computed?
+- Guarantees performance?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7. 
+- How does the micro-services know each other to collaborate? 
+- How does a client make requests, without knowing the actual micro-service?
+
+8.
+- A legacy app is containerised for kubernetes deployment
+- The app handles HTTP traffic
+- The business demands HTTPS
+- How can it be handled without rebuilding the legacy app
+
+9. 
+- Assume kubernetes deployment
+- A containerised app requires database service
+- The database service do not handles shard routing
+- The app do not handle shard routing
+- How can a shard router be deployed?
+
+10. 
+- Huge amount of data is to be stored and queried on a distributed environment
+- The hits are more-or-less evenly distributed across the tables
+- Horzontal scaling is required
+
+11. 
+- Clients and servers use different protocols (xml vs json)
+- Clients and servers are unaware of each other
+- Requests from the clients are to be routed to the relevant server
+
+12. 
+- Clients and servers use common protocols
+- Clients and servers are unaware of each other
+- Requests from the clients are to be made available for mulitple servers
+
+
+
+
+
+Distributed Transaction
+2PC - MS - NO
+Messaging (Kafka)
+
+
+
+S1
+S2
+S3
+
+Order Service
+Inventory Service
+Payments
+
+
+
+
+
+
+
+
+
+
+
+
+

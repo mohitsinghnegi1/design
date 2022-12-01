@@ -1,0 +1,5 @@
+com.glarimy.dir.api
+com.glarimy.dir.api.domain
+com.glarimy.dir.api.exceptions
+com.glarimy.dir.service
+com.glarimy.dir.ui
